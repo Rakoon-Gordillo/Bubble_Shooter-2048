@@ -1,17 +1,17 @@
-PVector mouse,center,pos;
+PVector mouse,center,pos; //vector - coordenadas mouse, tirador y memoria mouse
 float x,y,dt,v,dx,dy;
 boolean disparo;
 float modMouse;
  
 void setup(){
   size(640,480);
-  mouse = new PVector(mouseX,mouseY);
-  center = new PVector(width/2,height-10);
-  pos = new PVector(0,0);
-  dt = 0.01;// variable para aumentar la posición en "x" y en "y"
-  v = 0.005;//
-  dx = 0.0;
-  dy=0.0;
+  mouse = new PVector(mouseX,mouseY); //vector - coordenadas mouse
+  center = new PVector(width/2,height-10); //vector - coordenadas del tirador
+  pos = new PVector(0,0); //memoria/8 del mouse
+  dt = 0.01;//variable para aumentar la posición en "x" y en "y"
+  v = 0.005;//constante
+  dx = 0.0; //coordenada x burbuja
+  dy=0.0; //coordenada y burbuja
   disparo = false;
 }
 void draw(){
