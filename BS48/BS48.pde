@@ -1,31 +1,40 @@
 byte interfaz = 0; //variable de pantalla que se muetra
 PFont letra; PFont number; //variables para texto
 Button play; Button instrucciones; Button con;
+Cannon bubbleBlank; Cannon bubbleNumber;
 void setup () {
   size(640, 480); //resolución mínima de pantalla
   letra = createFont("Bubblegum Sans Regular", 32); number = createFont("Dosis Regular", 10); //fuente de letra y número
   play = new Button(220, 400, "JUGAR");
 }
 void draw () {
-  println(interfaz);
   if (interfaz == 0) { //Menú principal
     background(#FF8000); //Naranja
+    fill(0); //color letra
+    textAlign(RIGHT); //alineación del texto para título
+    textFont(letra, 30);
+    text("BS", width/2, 40);
+    textAlign(LEFT); //alineación del texto para título
+    textFont(number, 30);
+    text("48", width/2, 40);
     play.mostrar();
   } else if(interfaz == 1){
     background(#8080FF);
+    
+    fill(#FF8000);
+    noStroke();
+    rect(0, 0, 140, height);
+    rect(width-140, 0, width, height);
+    strokeWeight(3);
+    stroke(255);
+    line(140, 0, 140, height);
+    line(140, 0, width-140, 0);
+    line(140, height, width-140, height);
+    line(width-140, 0, width-140, height);
   }
-  fill(0); //color letra
-  textAlign(RIGHT); //alineación del texto para título
-  textFont(letra, 30);
-  text("BS", width/2, 40);
-  textAlign(LEFT); //alineación del texto para título
-  textFont(number, 30);
-  text("48", width/2, 40);
 }
-void mousePressed(){
-  if (interfaz == 0){
-    play.isPressed();
-  }
+void mouseClicked(){
+  play.isPressed();
 }
 class Button {
   float xPos; float yPos; String texto; float xSize; float ySize; //declaración de variables para botones
@@ -39,7 +48,7 @@ class Button {
     this(_XPos, _YPos, _texto, 200, 50);
   }
   void isPressed(){
-    if ((mouseButton == LEFT) && mousePressed && interfaz == 0 && (mouseX<xPos+211) && (xPos-11<mouseX) && (mouseY<yPos+61) && (yPos-11<mouseY)){ //cuando se presione el botón
+    if ((mouseButton == LEFT) && interfaz == 0 && (mouseX<xPos+211) && (xPos-11<mouseX) && (mouseY<yPos+61) && (yPos-11<mouseY)){ //cuando se presione el botón
       interfaz = 1;
     }
   }
@@ -56,5 +65,10 @@ class Button {
   }
   void presionar(){
     interfaz=1;
+  }
+}
+class Cannon{
+  
+  Cannon(){
   }
 }
