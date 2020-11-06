@@ -1,5 +1,4 @@
 PVector mouse, pos, d; //vector - coordenadas mouse, tirador y memoria mouse
-float x,y,dx,dy;
 boolean disparo;
 void setup(){
   size(640,480);
@@ -16,7 +15,7 @@ void draw(){
   line(width/2,height-10,50*mouse.x+(width/2),50*mouse.y+(height-10)); //trasa la linea al seno*50
   
   if(mousePressed){ //cuando se presione el mouse
-    disparo = true; //se habilita disparo ¿?
+    disparo = true; //se habilita disparo
     d.set(width/2,height-10); //coordenada de la burbuja en el cañón
     pos.set(6.25*mouse.x,6.25*mouse.y); //determina la velocidad de la burbuja
   }
