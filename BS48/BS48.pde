@@ -1,11 +1,15 @@
 byte interfaz = 0; //variable de pantalla que se muetra
-PFont letra; PFont number; //variables para texto
-Button play; Button instrucciones; Button con;
-Cannon bubbleBlank; Cannon bubbleNumber;
+PFont letra, number; //variables para texto
+PVector mouse, pos, d; //posición respecto al mouse, psoición de la burbuja y velocidad de la burbuja
+boolean disparo; //true de haber un disparo activo, false de lo contrario 
+Button play; Button instrucciones; Button con; //botón de Jugar, instrucciones, como se juega y configuración
+Cannon bubbleBlank; Cannon bubbleNumber; //cañones de burbujas y de 2^n
 void setup () {
   size(640, 480); //resolución mínima de pantalla
   letra = createFont("Bubblegum Sans Regular", 32); number = createFont("Dosis Regular", 10); //fuente de letra y número
   play = new Button(220, 400, "JUGAR");
+  mouse = new PVector(); pos = new PVector(); d = new PVector(); //inicializa vectores de la posición del mouse, la velocidad, y la coordenada de la burbuja 
+  disparo = false;
 }
 void draw () {
   if (interfaz == 0) { //Menú principal
@@ -20,9 +24,33 @@ void draw () {
     play.mostrar();
   } else if(interfaz == 1){
     background(#8080FF);
-    
+    strokeWeight(1);
+    stroke(0);
+    //pushStyle();
+    //directamente de huevos
+    line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , width/2, height+5); //ejes del cañón
+    mouse.set(mouseX-(width/2),mouseY-height+10); //posición del mouse respecto al tirador (y distancia según su ejes)
+    mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
+    line(width/2,height-10,50*mouse.x+(width/2),50*mouse.y+(height-10)); //trasa la linea al seno*50
+    if(mousePressed){ //cuando se presione el mouse
+      disparo = true; //se habilita disparo
+      d.set(width/2,height-10); //coordenada de la burbuja en el cañón
+      pos.set(6.25*mouse.x,6.25*mouse.y); //determina la velocidad de la burbuja
+    }
+    if(disparo==true){ //durante el disparo
+      fill(255, 0, 0); //color de la burbuja
+      rectMode(CENTER); //centrar la burbuja al origen
+      rect(d.x, d.y, 30, 30, 5); //dibujar la burbuja
+      d.add(pos.x, pos.y); //actualiza la posición de la burbuja
+      if(d.x > width || d.y > height){ //cuando se salga de ciertas coordenadas
+        disparo=false; //inhabilita el disparo
+      }
+    }
+    //popStyle();
+    //fin de huevos
     fill(#FF8000);
     noStroke();
+    rectMode(CORNER);
     rect(0, 0, 140, height);
     rect(width-140, 0, width, height);
     strokeWeight(3);
@@ -67,8 +95,11 @@ class Button {
     interfaz=1;
   }
 }
-class Cannon{
-  
+abstract class Vectoriables{
+}
+class Cannon extends Vectoriables{
   Cannon(){
   }
+}
+class Bubble extends Vectoriables{
 }

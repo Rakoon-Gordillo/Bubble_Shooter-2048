@@ -10,8 +10,7 @@ void draw(){
   line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , width/2, height+5); //ejes del cañón
   
   mouse.set(mouseX-(width/2),mouseY-height+10); //posición del mouse respecto al tirador (y distancia según su ejes)
-  //mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2))));// torna el valor de x=50cos y y=-50sen
-  mouse.normalize(); //vector a distancia 1
+  mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
   line(width/2,height-10,50*mouse.x+(width/2),50*mouse.y+(height-10)); //trasa la linea al seno*50
   
   if(mousePressed){ //cuando se presione el mouse
