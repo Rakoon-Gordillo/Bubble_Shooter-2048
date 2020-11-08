@@ -7,7 +7,7 @@ void setup(){
 }
 void draw(){
   background(200);
-  line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , width/2, height+5); //ejes del cañón
+  line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25, width/2, height+5); //ejes del cañón
   
   mouse.set(mouseX-(width/2),mouseY-height+10); //posición del mouse respecto al tirador (y distancia según su ejes)
   mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
@@ -16,7 +16,7 @@ void draw(){
   if(mousePressed){ //cuando se presione el mouse
     disparo = true; //se habilita disparo
     d.set(width/2,height-10); //coordenada de la burbuja en el cañón
-    pos.set(6.25*mouse.x,6.25*mouse.y); //determina la velocidad de la burbuja
+    pos.set(6.25*mouse.x, 6.25*mouse.y); //determina la velocidad de la burbuja
   }
   
   if(disparo==true){ //durante el disparo
@@ -24,7 +24,7 @@ void draw(){
     rectMode(CENTER); //centrar la burbuja al origen
     rect(d.x, d.y, 30, 30, 5); //dibujar la burbuja
     d.add(pos.x, pos.y); //actualiza la posición de la burbuja
-    if(d.x > width || d.y > height){ //cuando se salga de ciertas coordenadas
+    if(d.x < width || d.y > height){ //cuando se salga de ciertas coordenadas
       disparo=false; //inhabilita el disparo
     }
   }

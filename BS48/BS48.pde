@@ -1,15 +1,16 @@
-byte interfaz = 0; //variable de pantalla que se muetra
+ArrayList<Bubble> tablero = new ArrayList<Bubble>();
+ArrayList<Bubble> shoots = new ArrayList<Bubble>(2);
+boolean disparo = false; //indica si hay un disparo activo y si el objeto es de 2^n
+boolean n = true; //cañon activo
+byte interfaz = 0; //variable de pantalla que se muestra
 PFont letra, number; //variables para texto
-PVector mouse, pos, d; //posición respecto al mouse, psoición de la burbuja y velocidad de la burbuja
-boolean disparo; //true de haber un disparo activo, false de lo contrario 
-Button play; Button instrucciones; Button con; //botón de Jugar, instrucciones, como se juega y configuración
-Cannon bubbleBlank; Cannon bubbleNumber; //cañones de burbujas y de 2^n
+Button play; Button instrucciones; Button con; //botones (Jugar, instrucciones y configuración respectivamente)
+Cannon bubbleBlank; Cannon bubbleNumber; //cañones de burbujas (sin y con 2^n respectivamente)
 void setup () {
   size(640, 480); //resolución mínima de pantalla
   letra = createFont("Bubblegum Sans Regular", 32); number = createFont("Dosis Regular", 10); //fuente de letra y número
   play = new Button(220, 400, "JUGAR");
-  mouse = new PVector(); pos = new PVector(); d = new PVector(); //inicializa vectores de la posición del mouse, la velocidad, y la coordenada de la burbuja 
-  disparo = false;
+  bubbleBlank = new Cannon(false); bubbleNumber = new Cannon(true);
 }
 void draw () {
   if (interfaz == 0) { //Menú principal
@@ -23,11 +24,11 @@ void draw () {
     text("48", width/2, 40);
     play.mostrar();
   } else if(interfaz == 1){
-    background(#8080FF);
+    background(#8080FF); //interior del tablero
     strokeWeight(1);
     stroke(0);
     //pushStyle();
-    //directamente de huevos
+    /*directamente de huevos
     line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , width/2, height+5); //ejes del cañón
     mouse.set(mouseX-(width/2),mouseY-height+10); //posición del mouse respecto al tirador (y distancia según su ejes)
     mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
@@ -47,7 +48,7 @@ void draw () {
       }
     }
     //popStyle();
-    //fin de huevos
+    //fin de huevos*/
     fill(#FF8000);
     noStroke();
     rectMode(CORNER);
@@ -62,6 +63,11 @@ void draw () {
   }
 }
 void mouseClicked(){
+  if (interfaz == 1){
+    for(int i=1; i<shoots.size(); i++){
+      (shoots.get(i)).displayShoot();
+    }
+  }
   play.isPressed();
 }
 class Button {
@@ -96,10 +102,68 @@ class Button {
   }
 }
 abstract class Vectoriables{
+  PVector mouse; //posición respecto al mouse
+  void setDirection(float x, float y){
+    mouse = new PVector(); //inicializa el objetivo a partir de la posición del mouse
+    mouse.set(mouseX-x, mouseY-y); //posición del mouse respecto al tirador (y distancia según su ejes)
+    mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
+  }
 }
 class Cannon extends Vectoriables{
-  Cannon(){
+  boolean numbers; //responde a "¿el cañon actual es de números?"
+  PVector eje; //posición del eje del cañon según actividad
+  byte cannonSize; //tamaño del cañon según actividad
+  boolean activo; //actividad del cañon
+  Cannon(boolean _numbers){
+    numbers = _numbers;
+    eje = new PVector(); //inicia vectores del eje
+  }
+  void display(){
+    line(eje.x-cannonSize, eje.y, eje.x+cannonSize, eje.y); line(eje.x, eje.y-15 , eje.x, eje.y+15); //ejes del cañón (x y y respectivamente)
+    setDirection(eje.x, eje.y);
+    line(eje.x, eje.y, 50*mouse.x+eje.x,50*mouse.y+eje.y); //traza la línea-cañón al seno*50
+  }
+  void setActivo(boolean _activo){
+    activo = _activo;
+    if (_activo){
+      eje.set(width/2, height-10);
+      cannonSize = 25;
+    } else {
+      eje.set(30+width/2, height-5);
+      cannonSize = 15;
+    }
   }
 }
 class Bubble extends Vectoriables{
+  PVector pos, d; //posición de la burbuja y velocidad de la burbuja
+  color bubbleColor; //color de la burbuja
+  int n; //grado de 2^n para el número en la burbuja
+  boolean state; //estado de la burbuja
+  boolean invertido = false; //define si se ha invertido la dirección de la burbuja 
+  Bubble(boolean number, boolean _state){
+    setDirection(width/2, height-10);
+    pos = new PVector(6.25*mouse.x, 6.25*mouse.y); d = new PVector(width/2, height-10); //inicializa vectores de velocidad y coordenada de la burbuja respectivamente
+    n = (number)? 0:1; //de ser una burbuja vacía, es de grado 0, de lo contrario 1
+    state = _state; //declara el estado de una burbuja
+  }
+  Bubble(boolean number){
+    this(number, false);
+  }
+  Bubble(){
+    this(false);
+  }
+  void displayShoot(){
+    fill(255, 0, 0); //color de la burbuja
+    rectMode(CENTER); //centrar la burbuja al origen
+    rect(d.x, d.y, 30, 30, 5); //dibujar la burbuja
+    if (state){
+      d.add(pos.x, pos.y); //actualiza la posición de la burbuja
+      if(d.x > width-155 || d.x < 155){ //cuando se salga de ciertas coordenadas
+        pos.x = -pos.x; //invierte la dirección de la burbuja
+        invertido = !invertido; //cambia entre true y false según sea invertida la burbuja
+      }
+      if (d.y<16){
+      }
+    }
+  }
 }
