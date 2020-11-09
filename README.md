@@ -38,4 +38,8 @@ La realizacion de este juego se hizo por medio de objetos en processing. Como to
 - Clase maths: En esta clase se realizan todos los calculos para la combinacion de los bloques en cada una de las direcciones.
 - Clase puntaje: En esta clase se da la puntuacion y se dibuja en el tablero.
 - Clase controller: Como su nombre lo indica esta clase es el cerebro del juego ya que esta hereda los calculos de las demas, y los lleva a la pestaña principal la cual tiene como nombre central, para que se ejecute el juego y todos sus procesos
+## Conclusiones
+
+- Como podemos darnos cuenta en nuestra primer proyecto utilizando objetos debemos destacar que para estos casos de juegos casuales utilizar objetos sale muy rentable ya que puedes evitarte muchos problemas, y facilita la comprension del codigo para la persona a la cual va dirigida el codigo, ademas comparado con nuestra anterior entrega el codigo quedo mas resumido y tuvimos que gastar menos lineas utilizando objetos. 
+- Al mirar el trabajo que hemos realizado para esta entrega observamos lo facil y complejo a la vez que puede ser usar objetos, ademas de eso todavia nos falta la conclusion de este trabajo ya que no pudimos realizar una combinacion de los 2 juegos que son el bubble shooter con el 2048.
 
