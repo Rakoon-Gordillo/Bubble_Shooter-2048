@@ -20,26 +20,69 @@ Para la realización de este, se comenzó por crear la pantalla de inicio. Para 
 
 Seguido de esto, se implementó la clase ```Button``` para los botones, de tal forma que cada se pudiesen hacer varios botones a la vez y en los diferentes menús; empezando por el botón *Jugar* del menú de inicio. Esta contiene los métodos:
 
-+ ```isPressed```: Verifica si se está presionando el botón, y de ser cierto, hace su función
++ ```isPressed```: Verifica si se está presionando el botón, y de ser cierto, llama a la función ```mousePressed```, con la cual se activa la función del botón.
 + ```display```: Se encarga de mostrar el botón en el respectivo menú.
 
-Durante este proceso, se empezó a diseñar un modelo de cañón para los tiradores que se encuentran en la parte inferior de la pantalla al comenzar el juego, a partir de ejes. Para esto, se creo otra clase llamada ```Cannon```. Esta es la encargada de los cañones. Sus métodos son:
+Durante este proceso, se empezó a diseñar un modelo de cañón y burbujas para los tiradores que se encuentran en la parte inferior de la pantalla al comenzar el juego, a partir de ejes. Esta sección de código se fue perfeccionando y resulto de la siguiente forma:
+
+```
+line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , width/2, height+5); //ejes del cañón
+    mouse.set(mouseX-(width/2),mouseY-height+10); //posición del mouse respecto al tirador (y distancia según su ejes)
+    mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
+    line(width/2,height-10,50*mouse.x+(width/2),50*mouse.y+(height-10)); //trasa la linea al seno*50
+    if(mousePressed){ //cuando se presione el mouse
+      disparo = true; //se habilita disparo
+      d.set(width/2,height-10); //coordenada de la burbuja en el cañón
+      pos.set(6.25*mouse.x,6.25*mouse.y); //determina la velocidad de la burbuja
+    }
+    if(disparo==true){ //durante el disparo
+      fill(255, 0, 0); //color de la burbuja
+      rectMode(CENTER); //centrar la burbuja al origen
+      rect(d.x, d.y, 30, 30, 5); //dibujar la burbuja
+      d.add(pos.x, pos.y); //actualiza la posición de la burbuja
+      if(d.x > width || d.y > height){ //cuando se salga de ciertas coordenadas
+        disparo=false; //inhabilita el disparo
+      }
+    }
+```
+
+Al final, se unificó con el código original, con los que se formaron las clases ```Cannon``` y ```Bubble```.
+
+La clase ```Cannon``` es la encargada del movimiento, mostrado y comportamiento general de los cañones. Sus métodos son:
 
 + ```display```: Se encarga de mostar el cañón en el tablero.
-+ ```setActivo```: Se encarga de fijar el cañón como principal o secundario.
++ ```setActivo```: LLama al método ```activar``` con valor ```true```.
 + ``` activar```: Se encarga de establecer el cañón como principal y devuelve el booleano ```false```, de tal manera que pueda ser usado para desactivar el otro cañón.
 + ```getActivo```: Devuelve un valor booleano que determina si dicho cañón es principal o secundario.
+
+La clase ```Bubble``` es la encargada del movimiento, mostrado y comportamiento general de las burbujas. Sus métodos son:
+
++ ```getBubbleColor```: Se encarga de devolver el color de cierta burbuja (trivial en este punto de avance del juego).
++ ```getN``` : Devuelve el valor para el grado del número en la burbuja (no implementado correctamente aún).
++ ```display```: Muestra la burbuja. Además, le da movimiento en caso de haberse disparado.
++```mover```: Se encarga de transladar la burbuja del arreglo shoots (que guarda la información de las burbujas en movimiento en el tablero y la que tiene el cañón) al arreglo tablero (que guarda las burbujas que se fijan en el tablero).
++ ```reset```: Al disparar una burbuja, esta se duplica en el arreglo shoots, de tal manera que se le pueda aparentar movimiento desde el cañón. Al duplicarla, este método se encarga de reiniciar las propiedades de la burbuja en el cañón (la original) para poder repetir el proceso.
++ ```getPos```: Devuelve la posición de la burbuja como vector.
+
+Debido a que estas 2 funciones requerían información sobre la posición del *mouse*, bien sea para alinear el cañón o bien sea para dirigir la burbuja en la dirección correcta, se implemento la clase abstracta ```Vectoriables```, la cual guarda un vector que tiene la posición del *mouse* respecto al cañón, pero cuya magnitud se mantiene en 50 al utilizar el método ```setDirection```, encargado de alinear el cañón respecto al *mouse* y de dirigir la burbuja en dirección al *mouse* al momento de disparar (el cual se activa con la función ```mouseClicked```).
+
+Debido a varios problemas en la construcción del código, como lo fueron la instalación del código a objetos, el detector de impacto de las burbujas respecto a otras burbujas en el tablero, la necesidad de varios métodos para las burbujas y el cañón, y el perfeccionamiento en el funcionamiento de estos, está para su próxima implementación:
++ Una guía durante el disparo de las burbujas
++ Los números dados por *2^n* de cada burbuja según se vayan combinando para que dicho *n* vaya aumentando.
++ El movimiento de las burbujas hacia la parte inferior del tablero, para generar más burbujas aleatoriamente.
++ El diseño, texturas y estética de los cañones
++ Los puntajes durante juego y demás estadísticas.
++ Un menú para guardar los mejores puntajes.
++ Un menú de configuración para modificar la dificultad y estética del juego a gusto del usuario.
++ Manual de juego.
++ Sensor de pérdida.
 
 ## 2048
 Primero debemos saber que es un 2048, el juego tiene como objetivo deslizar baldosas en una cuadrícula para combinarlas y crear una baldosa con el número 2048. Se lo considera como un rompecabezas de deslizamiento, fue desarrollado por primera vez por: Gabriele Cirulli.
 La realizacion de este juego se hizo por medio de objetos en processing. Como toda realizacion de un proyecto tiene sus pasos. en primer lugar planteamos hacer una grilla para ubicar los bloques, cabe destacar la realizacion de la grilla de 5x5, luego de eso viene la creacion de los bloques y ademas de eso los numeros que van contenidos dentro de estos. Al realizar los bloques debemos idear una algo la combinacion de bloques identicos se realizo es un calculo para poder combinar los bloques de igual numero y realizar la duplicacion del numero en el centro y cada uno de estos calculos se realizo para el movimiento en cada direccion. Una problema que ocurrio durante esto fue la creación de diferentes colores para cada bloque de cada numero y al no poderlo realizar se dejaron todos los bloques de un mismo color, el juego termina cuando el jugador se queda sin opciones de combinar los bloques, y estan llenas cada una de las casillas de la grilla. Para realizar este juego se crearon 5 clases las cuales son:
-- ```Clase colores```: En esta clase se realiza el pintado de los bloques con color rojo y ademas de eso se ubican los bloques en la pantalla.
-- ```Clase grilla```: En esta clase se realiza la grilla que aparece en pantalla y ademas se definen los bloques y como van a estar, y su aparición en la pantalla.
-- ```Clase maths```: En esta clase se realizan todos los calculos para la combinacion de los bloques en cada una de las direcciones.
-- ```Clase puntaje```: En esta clase se da la puntuacion y se dibuja en el tablero.
-- ```Clase controller```: Como su nombre lo indica esta clase es el cerebro del juego ya que esta hereda los calculos de las demas, y los lleva a la pestaña principal la cual tiene como nombre central, para que se ejecute el juego y todos sus procesos
-## Conclusiones
-
-- Como podemos darnos cuenta en nuestra primer proyecto utilizando objetos debemos destacar que para estos casos de juegos casuales utilizar objetos sale muy rentable ya que puedes evitarte muchos problemas, y facilita la comprension del codigo para la persona a la cual va dirigida el codigo, ademas comparado con nuestra anterior entrega el codigo quedo mas resumido y tuvimos que gastar menos lineas utilizando objetos. 
-- Al mirar el trabajo que hemos realizado para esta entrega observamos lo facil y complejo a la vez que puede ser usar objetos, ademas de eso todavia nos falta la conclusion de este trabajo ya que no pudimos realizar una combinacion de los 2 juegos que son el bubble shooter con el 2048.
+- Clase colores: En esta clase se realiza el pintado de los bloques con color rojo y ademas de eso se ubican los bloques en la pantalla.
+- Clase grilla: En esta clase se realiza la grilla que aparece en pantalla y ademas se definen los bloques y como van a estar, y su aparición en la pantalla.
+- Clase maths: En esta clase se realizan todos los calculos para la combinacion de los bloques en cada una de las direcciones.
+- Clase puntaje: En esta clase se da la puntuacion y se dibuja en el tablero.
+- Clase controller: Como su nombre lo indica esta clase es el cerebro del juego ya que esta hereda los calculos de las demas, y los lleva a la pestaña principal la cual tiene como nombre central, para que se ejecute el juego y todos sus procesos
 
