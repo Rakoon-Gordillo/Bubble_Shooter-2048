@@ -16,6 +16,19 @@ Para ejecutar el juego tienes que copiar el codigo en Processing y estar con la 
 Nuestro proyecto inicio como una idea de realizar una innovacion dentro de los juegos de tile-matching, por lo que nos basamos en la combinacion de un bubble shooter con el juego de 2048 ya que podriamos realizar algo nuevo a partir de algo ya creado como todo en esta vida la inspiracion siempre viene de una parte la cual ya existe.
 En primer lugar debemos realizar los 2 juegos por separado el bubble shooter y el 2048.
 ## Bubble shooter
+Para la realización de este, se comenzó por crear la pantalla de inicio. Para esta, se buscaron fuentes apropiadas para los números (*Dosis Regular* en tamaño **40**) y la letra (*Bubblegum Sans Regular*, en tamaño **40**), de tal manera que fuese más llamativo.
+
+Seguido de esto, se implementó la clase ```Button``` para los botones, de tal forma que cada se pudiesen hacer varios botones a la vez y en los diferentes menús; empezando por el botón *Jugar* del menú de inicio. Esta contiene los métodos:
+
++ ```isPressed```: Verifica si se está presionando el botón, y de ser cierto, hace su función
++ ```display```: Se encarga de mostrar el botón en el respectivo menú.
+
+Durante este proceso, se empezó a diseñar un modelo de cañón para los tiradores que se encuentran en la parte inferior de la pantalla al comenzar el juego, a partir de ejes. Para esto, se creo otra clase llamada ```Cannon```. Esta es la encargada de los cañones. Sus métodos son:
+
++ ```display```: Se encarga de mostar el cañón en el tablero.
++ ```setActivo```: Se encarga de fijar el cañón como principal o secundario.
++ ``` activar```: Se encarga de establecer el cañón como principal y devuelve el booleano ```false```, de tal manera que pueda ser usado para desactivar el otro cañón.
++ ```getActivo```: Devuelve un valor booleano que determina si dicho cañón es principal o secundario.
 
 ## 2048
 Primero debemos saber que es un 2048, el juego tiene como objetivo deslizar baldosas en una cuadrícula para combinarlas y crear una baldosa con el número 2048. Se lo considera como un rompecabezas de deslizamiento, fue desarrollado por primera vez por: Gabriele Cirulli.
