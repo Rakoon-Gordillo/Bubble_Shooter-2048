@@ -7,7 +7,7 @@ Button play; Button instrucciones; Button con; //botones (Jugar, instrucciones y
 Cannon bubbleBlank; Cannon bubbleNumber; //cañones de burbujas (sin y con 2^n respectivamente)
 void setup () {
   size(640, 480); //resolución mínima de pantalla
-  letterFont = createFont("Bubblegum Sans Regular", 32); numberFont = createFont("Dosis Regular", 10); //fuente de letra y número
+  letterFont = createFont("Bubblegum Sans Regular", 32); numberFont = createFont("Dosis Regular", 32); //fuente de letra y número
   play = new Button(220, 400, "JUGAR"); //genera botón "JUGAR"
   bubbleBlank = new Cannon(false); bubbleNumber = new Cannon(true); //Genera los 2 cañones
   bubbleBlank.setActivo(bubbleNumber.activar());
