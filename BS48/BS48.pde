@@ -1,6 +1,7 @@
 ArrayList<Bubble> tablero = new ArrayList<Bubble>(); //arreglo dinámico para las burbujas presentes en el tablero 
 ArrayList<Bubble> shoots = new ArrayList<Bubble>(); //arreglo dinámico para las burbujas lanzadas y preparadas para lanzamiento
 color nextBubble = color(#FF0000); //color de la siguiente burbuja
+int paleta = 8;
 float interfaz = 0; //variable de pantalla que se muestra
 PFont letterFont, numberFont; //variables para texto
 Button play; Button instrucciones; Button con; //botones (Jugar, instrucciones y configuración respectivamente)

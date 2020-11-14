@@ -18,28 +18,6 @@ void draw () {
     for (Bubble burbuja : tablero){
       burbuja.display();
     }
-    //pushStyle();
-    /*directamente de huevos
-    line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , width/2, height+5); //ejes del cañón
-    mouse.set(mouseX-(width/2),mouseY-height+10); //posición del mouse respecto al tirador (y distancia según su ejes)
-    mouse.normalize(); //vector a distancia 1, hace lo mismo que mouse.mult(50/(sqrt(pow(mouse.x,2)+pow(mouse.y,2)))); el cual fija x=50cos y y=-50sen
-    line(width/2,height-10,50*mouse.x+(width/2),50*mouse.y+(height-10)); //trasa la linea al seno*50
-    if(mousePressed){ //cuando se presione el mouse
-      disparo = true; //se habilita disparo
-      d.set(width/2,height-10); //coordenada de la burbuja en el cañón
-      pos.set(6.25*mouse.x,6.25*mouse.y); //determina la velocidad de la burbuja
-    }
-    if(disparo==true){ //durante el disparo
-      fill(255, 0, 0); //color de la burbuja
-      rectMode(CENTER); //centrar la burbuja al origen
-      rect(d.x, d.y, 30, 30, 5); //dibujar la burbuja
-      d.add(pos.x, pos.y); //actualiza la posición de la burbuja
-      if(d.x > width || d.y > height){ //cuando se salga de ciertas coordenadas
-        disparo=false; //inhabilita el disparo
-      }
-    }
-    //popStyle();
-    //fin de huevos*/
     fill(#FF8000);
     noStroke();
     rectMode(CORNER);

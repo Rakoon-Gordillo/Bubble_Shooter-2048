@@ -51,17 +51,14 @@ class Bubble extends Vectoriables{
         if (d.mag() < 30){
           //println((new PVector (p.x - (bubbles.getPos()).x, p.y - (bubbles.getPos()).y)).mag());
           if ((abs(p.y - (bubbles.getPos()).y) < abs(p.x - (bubbles.getPos()).x)) && ((bubbles.getPos()).x < p.x)){
-            println(1);
             p.y = (bubbles.getPos()).y;
             p.x = (bubbles.getPos()).x+30;
             booleans = (booleans & 12) | 8;
           } else if ((abs(p.y - (bubbles.getPos()).y) < abs(p.x - (bubbles.getPos()).x)) && ((bubbles.getPos()).x > p.x)){
-            println(2);
             p.y = (bubbles.getPos()).y;
             p.x = (bubbles.getPos()).x-30;
             booleans = (booleans & 12) | 8;
           } else {
-            println(3);
             p.x = (bubbles.getPos()).x;
             p.y = (bubbles.getPos()).y+30;
             booleans = (booleans & 12) | 8;
@@ -74,7 +71,7 @@ class Bubble extends Vectoriables{
     return (booleans & 10) == 8;
   }
   void reset(){
-    bubbleColor = color(#FF0000); n = (bubbleNumber.getActivo())?1:0; booleans = 0;
+    bubbleColor = colorBubble(); n = (bubbleNumber.getActivo())?1:0; booleans = 0;
   }
   PVector getPos(){
     return p;
