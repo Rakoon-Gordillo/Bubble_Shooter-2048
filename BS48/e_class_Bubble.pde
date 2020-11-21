@@ -48,7 +48,8 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
           }
         }
       } 
-    } else if ((booleans & 8) == 8){ rect(p.x, p.y+bajamiento, 30, 30, 5); } //dibujar la burbuja
+    } else if ((booleans & 8) == 8){ rect(p.x, p.y+bajamiento, 30, 30, 5); //dibujar la burbuja
+    } else if ((booleans & 14) == 0){ rect(p.x, p.y, 30, 30, 5); } //muestra burbuja del cañón
   }
   boolean mover(){ return (booleans & 10) == 8; } //verifica si se puede fijar una burbuja
   void reset(){ bubbleColor = colorBubble(); n = (bubbleNumber.getActivo())?1:0; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
