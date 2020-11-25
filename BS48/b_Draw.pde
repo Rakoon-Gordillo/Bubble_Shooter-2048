@@ -13,18 +13,17 @@ void draw () {
       if((shoots.get(i)).mover()){ //si impactan
         tablero.add(shoots.get(i)); //mueve de disparos a tablero
         shoots.remove(i); //elimina disparo
-      }
-    }
+      } //mueve una burbuja de shoots al tablero cuando hay impacto
+    } //busca burbujas que hayan impactado
     bubbleBlank.display(); bubbleNumber.display(); //muestra cañones
     (shoots.get(0)).display(); //muestra burbuja del cañón
     for (int i = tablero.size()-1; i>-1; i--){
       (tablero.get(i)).display(); //muestra las burbujas del tablero
       if (bajamiento >= 30){ (tablero.get(i)).bajar(); } //baja una linea las burbujas para poder insertar otra fila
-    }
-    if (bajamiento >= 30){
-      for (int i = 0; i<10; i++){
-      }
-    }
+    } //baja una fila
+    if (bajamiento >= 30){ for (int i = 0; i<12; i++){ //repite 12 veces la siguiente operación al cumplirse el tiempo establecido
+      tablero.add(new Bubble(0, false, new PVector((i*30)+155, -15))); (tablero.get(tablero.size()-1)).fijar(); // crea una nueva burbuja en al parte superior del tablero y la fija
+    }} //genera una nueva fila en el tablero
     bajamiento = (bajamiento>=30)? 0:bajamiento; //verifica si se pude reiniciar el bajamiento para agregar otra fila de burbujas
     fill(#FF8000); noStroke(); image(leftPanel, 0, 0); image(rightPanel, width-140, 0);//rectMode(CORNER); rect(0, 0, 140, height); rect(width-140, 0, width, height); //paneles laterales
     strokeWeight(3); stroke(255); //decorado bordes

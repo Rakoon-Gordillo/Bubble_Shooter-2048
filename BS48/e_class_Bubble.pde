@@ -8,7 +8,7 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
     v = new PVector(6.25*mouse.x, 6.25*mouse.y); p = _p; //inicializa vectores de velocidad y coordenada de la burbuja respectivamente
     n = _n; //de ser una burbuja con número, es de grado 1, de lo contrario 0
     booleans = (_state)? booleans|2 : booleans&13; //confirma si la burbuja está en lanzamiento o está estática
-  }
+  } //inicializa las variables iniciales
   Bubble(int _n, boolean _state, color _bubbleColor){ this(_n, _state, _bubbleColor, new PVector(width/2, height-15)); } //constructor con argumentos bool, bool, color
   Bubble(int _n, boolean _state, PVector _p){ this(_n, _state, colorBubble(), _p); } //constructor con argumentos int, bool, vector
   Bubble(int _n, boolean _state){ this(_n, _state, colorBubble(), new PVector(width/2, height-15)); } //constructor con argumentos int, bool
@@ -32,22 +32,22 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
       if (p.y<16){ //cuando toca el límite del tablero
         booleans = (booleans & 12) | 8; //fija la burbuja (shoots a tablero)
         p.set((((p.x - 155) % 30) < 15)? int(p.x - ((p.x - 155) % 30)) : int(p.x + 30 - ((p.x - 155) % 30)), 15); //establece la ubicación de la burbuja
-      }
+      } //impide a la burbuja atravesar el límite superior del tablero
       for (Bubble bubbles : tablero){ //for(int i=0; i<shoots.size(); i++){ //recorre burbujas del tablero
         d = new PVector (p.x - (bubbles.getPos()).x, p.y - (bubbles.getPos()).y); //determina la distancia de la burbuja disparada a la del tablero
         if (d.mag() < 30){ //si detecta impacto
           if ((abs(p.y - (bubbles.getPos()).y) < abs(p.x - (bubbles.getPos()).x)) && ((bubbles.getPos()).x < p.x)){ //si golpea por derecha
             p.y = (bubbles.getPos()).y; p.x = (bubbles.getPos()).x+30; //mueve justo a la derecha
-            fijar(); //fija
+            fijar(); //fija (shoots a tablero)
           } else if ((abs(p.y - (bubbles.getPos()).y) < abs(p.x - (bubbles.getPos()).x)) && ((bubbles.getPos()).x > p.x)){ // si golpea por izquierda
             p.y = (bubbles.getPos()).y; p.x = (bubbles.getPos()).x-30; //mueve justo a la izquierda
             fijar(); //fija (shoots a tablero)
           } else { //o si golpea por debajo
             p.x = (bubbles.getPos()).x; p.y = (bubbles.getPos()).y+30; //mueve justo debajo
             fijar(); //fija (shoots a tablero)
-          }
-        }
-      } 
+          } //selecciona la posición en la cual se fijará respecto a la burbuja a la cual impactó
+        } //impide que atraviese las burbujas en el tablero
+      } //busca en todas las burbujas del tablero si hay una contra la cual esté impactando
     } else if ((booleans & 8) == 8){ rect(p.x, p.y+bajamiento, 30, 30, 5); //dibujar la burbuja
     } else if ((booleans & 14) == 0){ rect(p.x, p.y, 30, 30, 5); } //muestra burbuja del cañón
   }

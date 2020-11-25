@@ -9,6 +9,6 @@ color colorBubble(){ //sortea el color para la burbuja
     case 5: i = color(#00FFFF); break; //celeste
     case 6: i = color(#FF8000); break; //naranja
     case 7: i = color(#800080); break; //morado
-  }
+  } //escoge un color aleatorio para la burbuja
   return i; //retorna el color
 }
