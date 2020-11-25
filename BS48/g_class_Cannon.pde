@@ -17,7 +17,7 @@ class Cannon extends Vectoriables{ //relacionado a cañones
     fill(255); //estilo de ejes
     //line(eje.x-cannonSize, eje.y, eje.x+cannonSize, eje.y); line(eje.x, eje.y-15 , eje.x, eje.y+15); //ejes del cañón (x y y respectivamente)
     if(numbers){
-      pushStyle(); stroke(#000080); strokeWeight(cannonSize*4/5); rectMode(CENTER); //estilo
+      pushStyle(); stroke(#0090A6); strokeWeight(cannonSize*4/5); rectMode(CENTER); //estilo
       line(eje.x-6*cannonSize/5, eje.y-6*cannonSize/5, eje.x-6*cannonSize/5, height); line(eje.x+6*cannonSize/5, eje.y-6*cannonSize/5, eje.x+6*cannonSize/5, height);
       arc(eje.x, eje.y, 12*cannonSize/5, 12*cannonSize/5, PI, TWO_PI); //cargador
       noStroke();

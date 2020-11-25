@@ -5,14 +5,14 @@ class Button { //botones
   }
   Button(float _XPos, float _YPos){ this(_XPos, _YPos, ""); } //constructor de solo posición
   Button(float _XPos, float _YPos, String _texto){ this(_XPos, _YPos, _texto, 200, 50); } //constructor de posición y texto
-  void isPressed(){ //confirma si está siendo presoonado
+  void isPressed(){ //confirma si está siendo presionado
     if ((mouseButton == LEFT) && interfaz == 0 && (mouseX<xPos+xSize+11) && (xPos-11<mouseX) && (mouseY<yPos+ySize+11) && (yPos-11<mouseY)){ //y de ser el caso
       interfaz = 1; //inicia el juego
     }
   }
   void display(){ //muestra el botón
     pushStyle();
-    stroke(255); fill(100); //estilo
+    stroke(255); fill(#0090A6); //estilo
     rect(xPos, yPos, xSize, ySize, 5); //muestra el botón 
     fill(255); textAlign(CENTER, TOP); textFont(letterFont); //estilo de texto
     text(texto, xPos+100, yPos); //pone el texto en el botón
