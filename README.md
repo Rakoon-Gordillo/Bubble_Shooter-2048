@@ -60,7 +60,7 @@ La clase ```Bubble``` es la encargada del movimiento, mostrado y comportamiento 
 + ```getBubbleColor```: Se encarga de devolver el color de cierta burbuja (trivial en este punto de avance del juego).
 + ```getN``` : Devuelve el valor para el grado del número en la burbuja (no implementado correctamente aún).
 + ```display```: Muestra la burbuja. Además, le da movimiento en caso de haberse disparado.
-+```mover```: Se encarga de transladar la burbuja del arreglo shoots (que guarda la información de las burbujas en movimiento en el tablero y la que tiene el cañón) al arreglo tablero (que guarda las burbujas que se fijan en el tablero).
++ ```mover```: Se encarga de transladar la burbuja del arreglo shoots (que guarda la información de las burbujas en movimiento en el tablero y la que tiene el cañón) al arreglo tablero (que guarda las burbujas que se fijan en el tablero).
 + ```reset```: Al disparar una burbuja, esta se duplica en el arreglo shoots, de tal manera que se le pueda aparentar movimiento desde el cañón. Al duplicarla, este método se encarga de reiniciar las propiedades de la burbuja en el cañón (la original) para poder repetir el proceso.
 + ```getPos```: Devuelve la posición de la burbuja como vector.
 
