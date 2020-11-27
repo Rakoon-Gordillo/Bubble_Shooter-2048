@@ -4,7 +4,7 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
   int n; //grado de 2^n para el número en la burbuja
   int booleans = 0; //+1 si la dirección de la burbuja está invertida, +2 si la burbuja está en lanzamiento, +4 si es descartable, +8 si debe estar en el tablero
   Bubble(int _n, boolean _state, color _bubbleColor, PVector _p){ //constructor principal (argumentos: int, bool, color, vector)
-    bubbleColor = _bubbleColor; setDirection(width/2, height-15); //asigna color y dirección de la burbuja
+    bubbleColor = _bubbleColor; setDirection(); //asigna color y dirección de la burbuja
     v = new PVector(6.25*mouse.x, 6.25*mouse.y); p = _p; //inicializa vectores de velocidad y coordenada de la burbuja respectivamente
     n = _n; //de ser una burbuja con número, es de grado 1, de lo contrario 0
     booleans = (_state)? booleans|2 : booleans&13; //confirma si la burbuja está en lanzamiento o está estática
@@ -52,7 +52,7 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
     } else if ((booleans & 14) == 0){ rect(p.x, p.y, 30, 30, 5); } //muestra burbuja del cañón
   }
   boolean mover(){ return (booleans & 10) == 8; } //verifica si se puede fijar una burbuja
-  void reset(){ bubbleColor = colorBubble(); n = (bubbleNumber.getActivo())?1:0; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
+  void reset(){ bubbleColor = colorBubble(); n = 1; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
   PVector getPos(){ return p; } //devuelve la posición de la burbuja
   void bajar(){ p.add(0, 30); } //baja la burbuja de cierta para poder agregar una nueva
   void fijar(){ booleans = (booleans & 12) | 8; } //fuerza fijado al tablero

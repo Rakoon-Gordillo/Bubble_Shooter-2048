@@ -7,15 +7,14 @@ float bajamiento = 0; //cuanto bajan las burbujas en el tablero
 float interfaz = 0; //variable de pantalla que se muestra
 PFont letterFont, numberFont; PImage bubblesBackground, leftPanel, rightPanel; //variables para texto, fondos y paneles
 Button play; Button instrucciones; Button con; //botones (Jugar, instrucciones y configuración respectivamente)
-Cannon bubbleBlank; Cannon bubbleNumber; //cañones de burbujas (sin y con 2^n respectivamente)
+Cannon mainCannon; //cañones de burbujas (sin y con 2^n respectivamente)
 void setup () {
   size(640, 480); //resolución mínima de pantalla
   background(#EF913E); //Dinamo
   letterFont = createFont("Bubblegum Sans Regular", 32); numberFont = createFont("Dosis Regular", 32); //fuente de letra y número
   bubblesBackground = loadImage("background.png"); leftPanel = loadImage("leftPanel.png"); rightPanel = loadImage("rightPanel.png"); //fondo y paneles
   play = new Button(220, 400, "JUGAR"); //genera botón "JUGAR"
-  bubbleBlank = new Cannon(false); bubbleNumber = new Cannon(true); //Genera los 2 cañones
-  bubbleBlank.setActivo(bubbleNumber.activar()); //activa el cañón de burbujas vacías como el principal y el de números como secundario
+  mainCannon = new Cannon(); //Genera el cañon
   shoots.add(new Bubble()); //genera burbuja del cañón
   for(int i = 0; i<24; i++){ tablero.add(new Bubble(0, false, new PVector(((i%12)*30)+155, int(i/12)*30-15))); (tablero.get(i)).fijar(); } //crea 2 filas iniciales del tablero
 }
