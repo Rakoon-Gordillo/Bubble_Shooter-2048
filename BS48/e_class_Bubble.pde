@@ -22,6 +22,11 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
   Bubble(){ this(0, false, colorBubble(), new PVector(width/2, height-15)); } //constructor automático
   color getBubbleColor(){ return bubbleColor; } //conseguir el color de la burbuja
   int getN(){ return n; } //conseguir el grado del número de la burbuja
+  PVector getPos(){ return p; } //devuelve la posición de la burbuja
+  boolean mover(){ return (booleans & 10) == 8; } //verifica si se puede fijar una burbuja
+  void bajar(){ p.add(0, 30); } //baja la burbuja de cierta para poder agregar una nueva
+  void fijar(){ booleans = (booleans & 12) | 8; } //fuerza fijado al tablero
+  void reset(){ bubbleColor = colorBubble(); n = int(random(1,3)); booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
   void display(){ //mostrar, rebotar y fijar burbujas
     strokeWeight(1); stroke(0); fill(bubbleColor); //estilo de la burbuja
     rectMode(CENTER); //centrar la burbuja al origen
@@ -51,9 +56,4 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
     } else if ((booleans & 8) == 8){ rect(p.x, p.y+bajamiento, 30, 30, 5); //dibujar la burbuja
     } else if ((booleans & 14) == 0){ rect(p.x, p.y, 30, 30, 5); } //muestra burbuja del cañón
   }
-  boolean mover(){ return (booleans & 10) == 8; } //verifica si se puede fijar una burbuja
-  void reset(){ bubbleColor = colorBubble(); n = 1; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
-  PVector getPos(){ return p; } //devuelve la posición de la burbuja
-  void bajar(){ p.add(0, 30); } //baja la burbuja de cierta para poder agregar una nueva
-  void fijar(){ booleans = (booleans & 12) | 8; } //fuerza fijado al tablero
 }
