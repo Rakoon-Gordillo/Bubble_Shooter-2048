@@ -1,5 +1,5 @@
 class Cannon extends Vectoriables{ //relacionado a cañones
-  boolean numbers = true; //si dispara números = true, si es vacío = false
+  boolean numbers = false; //si dispara números = true, si es vacío = false
   boolean activo; //actividad del cañon
   Cannon(){} //constructor único
   void display(){ //muestra el cañón

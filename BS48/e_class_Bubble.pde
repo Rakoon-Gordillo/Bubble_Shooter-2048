@@ -9,17 +9,9 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
     n = _n; //de ser una burbuja con número, es de grado 1, de lo contrario 0
     booleans = (_state)? booleans|2 : booleans&13; //confirma si la burbuja está en lanzamiento o está estática
   } //inicializa las variables iniciales
-  Bubble(int _n, boolean _state, color _bubbleColor){ this(_n, _state, _bubbleColor, new PVector(width/2, height-15)); } //constructor con argumentos bool, bool, color
-  Bubble(int _n, boolean _state, PVector _p){ this(_n, _state, colorBubble(), _p); } //constructor con argumentos int, bool, vector
-  Bubble(int _n, boolean _state){ this(_n, _state, colorBubble(), new PVector(width/2, height-15)); } //constructor con argumentos int, bool
-  Bubble(int _n, color _bubbleColor, PVector _p){ this(_n, false, _bubbleColor, _p); } //constructor con argumentos int, color, vector
-  Bubble(int _n, color _bubbleColor){ this(_n, false, _bubbleColor, new PVector(width/2, height-15)); } //constructor con argumentos int, color
-  Bubble(boolean _state, color _bubbleColor, PVector _p){ this(0, _state, _bubbleColor, _p); } //constructor con argumentos boolean, color, vector
-  Bubble(boolean _state, color _bubbleColor){ this(0, _state, _bubbleColor, new PVector(width/2, height-15)); } //constructor con argumentos boolean, color
-  Bubble(int _n, PVector _p){ this(_n, false, colorBubble(), _p); } //constructor con argumento int, vector
-  Bubble(int _n){ this(_n, false, colorBubble(), new PVector(width/2, height-15)); } //constructor con argumento int
-  Bubble(PVector _p){ this(0, false, colorBubble(), _p); } //constructor con argumento vector
-  Bubble(){ this(0, false, colorBubble(), new PVector(width/2, height-15)); } //constructor automático
+  Bubble(int _n, boolean _state, color _bubbleColor){ this(_n, _state, _bubbleColor, new PVector(width/2, height-15)); } //<<<<<<<constructor con argumentos bool, bool, color
+  Bubble(int _n, boolean _state, PVector _p){ this(_n, _state, colorBubble(), _p); } //<<<<<<<<<<<constructor con argumentos int, bool, vector
+  Bubble(int _n){ this(_n, false, colorBubble(), new PVector(width/2, height-15)); } //<<<<<<<<<<<<constructor con argumento int
   color getBubbleColor(){ return bubbleColor; } //conseguir el color de la burbuja
   int getN(){ return n; } //conseguir el grado del número de la burbuja
   PVector getPos(){ return p; } //devuelve la posición de la burbuja
@@ -32,6 +24,8 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
     rectMode(CENTER); //centrar la burbuja al origen
     if ((booleans & 2) == 2){ //para burbujas en lanzamiento
       rect(p.x, p.y, 30, 30, 5); //muestra las burbujas en lanzamiento
+      fill(0);
+      if(0<n){text(int(pow(2,n)), p.x, p.y);}
       p.add(v); //actualiza la posición de la burbuja
       if(p.x > width-155 || p.x < 155){ v.x = -v.x; booleans = ((booleans & 1) == 0)? booleans | 1 : booleans & 14; } //rebota la burbuja
       if (p.y<16){ //cuando toca el límite del tablero
@@ -54,6 +48,11 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
         } //impide que atraviese las burbujas en el tablero
       } //busca en todas las burbujas del tablero si hay una contra la cual esté impactando
     } else if ((booleans & 8) == 8){ rect(p.x, p.y+bajamiento, 30, 30, 5); //dibujar la burbuja
-    } else if ((booleans & 14) == 0){ rect(p.x, p.y, 30, 30, 5); } //muestra burbuja del cañón
+      fill(0);
+      if(0<n){text(int(pow(2,n)), p.x, p.y+bajamiento);}
+    } else if ((booleans & 14) == 0){ rect(p.x, p.y, 30, 30, 5);
+      fill(0);
+      if(0<n){text(int(pow(2,n)), p.x, p.y);}
+    } //muestra burbuja del cañón
   }
 }

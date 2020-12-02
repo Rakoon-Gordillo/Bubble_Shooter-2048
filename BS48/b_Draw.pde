@@ -1,4 +1,5 @@
 void draw () {
+  println(frameRate);
   if (interfaz == 0) { //Menú principal
     image(bubblesBackground, 0, 0); //fondo
     fill(255); //color letra
