@@ -2,6 +2,7 @@ ArrayList<Bubble> tablero = new ArrayList<Bubble>(); //arreglo dinámico para la
 ArrayList<Bubble> shoots = new ArrayList<Bubble>(); //arreglo dinámico para las burbujas lanzadas y preparadas para lanzamiento
 boolean pressed = false; //determina si está presionado alguna tecla del mouse
 int _mouseButton = 0;
+float fps = 20;
 color nextBubble = colorBubble(); //color de la siguiente burbuja
 int paleta = 5; //cantidad de colores de burbujas en juego (puede variar entre 3 y 8, default = 5)
 float bajamiento = 0; //cuanto bajan las burbujas en el tablero
@@ -12,6 +13,7 @@ Cannon mainCannon; //cañones de burbujas (sin y con 2^n respectivamente)
 void setup () {
   size(640, 480); //resolución mínima de pantalla
   background(#EF913E); //Dinamo
+  frameRate(fps);
   letterFont = createFont("Bubblegum Sans Regular", 32); numberFont = createFont("Dosis Regular", 32); //fuente de letra y número
   bubblesBackground = loadImage("background.png"); leftPanel = loadImage("leftPanel.png"); rightPanel = loadImage("rightPanel.png"); //fondo y paneles
   play = new Button(220, 400, "JUGAR"); //genera botón "JUGAR"

@@ -5,7 +5,7 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
   int booleans = 0; //+1 si la dirección de la burbuja está invertida, +2 si la burbuja está en lanzamiento, +4 si es descartable, +8 si debe estar en el tablero
   Bubble(int _n, boolean _state, color _bubbleColor, PVector _p){ //constructor principal (argumentos: int, bool, color, vector)
     bubbleColor = _bubbleColor; setDirection(); //asigna color y dirección de la burbuja
-    v = new PVector(6.25*mouse.x, 6.25*mouse.y); p = _p; //inicializa vectores de velocidad y coordenada de la burbuja respectivamente
+    v = new PVector(375*mouse.x/fps, 375*mouse.y/fps); p = _p; //inicializa vectores de velocidad y coordenada de la burbuja respectivamente
     n = _n; //de ser una burbuja con número, es de grado 1, de lo contrario 0
     booleans = (_state)? booleans|2 : booleans&13; //confirma si la burbuja está en lanzamiento o está estática
   } //inicializa las variables iniciales

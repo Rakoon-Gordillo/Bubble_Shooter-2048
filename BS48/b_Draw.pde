@@ -1,5 +1,4 @@
 void draw () {
-  println(frameRate);
   if (interfaz == 0) { //Menú principal
     image(bubblesBackground, 0, 0); //fondo
     fill(255); //color letra
@@ -30,6 +29,6 @@ void draw () {
     fill(#FF8000); noStroke(); image(leftPanel, 0, 0); image(rightPanel, width-140, 0);//rectMode(CORNER); rect(0, 0, 140, height); rect(width-140, 0, width, height); //paneles laterales
     strokeWeight(3); stroke(255); //decorado bordes
     line(140, 0, 140, height); line(140, 0, width-140, 0); line(140, height, width-140, height); line(width-140, 0, width-140, height); //bordes de tablero
-    bajamiento+=0.025; //baja gradualmente las burbujas
+    bajamiento+=(3.0/(2.0*fps)); //baja gradualmente las burbujas
   }
 }
