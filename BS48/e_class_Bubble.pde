@@ -18,7 +18,7 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
   boolean mover(){ return (booleans & 10) == 8; } //verifica si se puede fijar una burbuja
   void bajar(){ p.add(0, 30); } //baja la burbuja de cierta para poder agregar una nueva
   void fijar(){ booleans = (booleans & 12) | 8; } //fuerza fijado al tablero
-  void reset(){ bubbleColor = nextBubble; nextBubble = colorBubble(); n = (resortear)? int(random(1,3)):n; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
+  void reset(int _mouseButton){ bubbleColor = nextBubble; nextBubble = colorBubble(); n = (resortear || (_mouseButton == LEFT))? nextBubbleN : n; nextBubbleN = (resortear || (_mouseButton == LEFT))? int(random(1,3)):nextBubbleN; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
   void display(){ //mostrar, rebotar y fijar burbujas
     strokeWeight(1); stroke(0); fill(bubbleColor); //estilo de la burbuja
     rectMode(CENTER); //centrar la burbuja al origen

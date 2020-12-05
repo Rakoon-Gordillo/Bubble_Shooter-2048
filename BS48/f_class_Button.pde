@@ -20,10 +20,10 @@ class Button { //botones
         break;
         case 1:
           while (shoots.size()>1){ shoots.remove(1); } //deja nomás el disparo del cañón presente
-          while (tablero.size()>0){ tablero.remove(tablero.size()-1); println(tablero.size()); } //borra todos los elementos de tablero
-          (shoots.get(0)).reset(); //reinicia el disparo
+          while (tablero.size()>0){ tablero.remove(tablero.size()-1); } //borra todos los elementos de tablero
+          (shoots.get(0)).reset(LEFT); //reinicia el disparo
           for(int i = 0; i<24; i++){ tablero.add(new Bubble((int(random(0,2)) == 1)? int(random(1,3)):0, false, new PVector(((i%12)*30)+155, int(i/12)*30-15))); (tablero.get(i)).fijar(); } //crea 2 filas iniciales del tablero
-          topN = 2; puntaje = 0; bajamiento = 0; nextBubble = colorBubble();
+          topN = 2; puntaje = 0; bajamiento = 0; nextBubble = colorBubble(); nextBubbleN = int(random(1,3));
           interfaz = 1; //inicia el juego
         break;
       }
