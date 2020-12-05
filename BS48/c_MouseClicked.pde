@@ -9,10 +9,11 @@ void mouseReleased() { //cuando está suelto el botón del mouse
         shoots.add(new Bubble((_mouseButton == LEFT)? (shoots.get(0)).getN():0, true, (shoots.get(0)).getBubbleColor())); //genera disparo
         (shoots.get(0)).reset(); //reinicia el que está en el cañón
       } //dispara
-    } //presionables durante juego
-    if (interfaz == 0){
+    } else if (interfaz == 0){ //presionables en el menú principal
       play.isPressed(); //confirmar el presionado de play
-    } //presionables en el menú principal
+    } else if (interfaz == 2) {
+      replay.isPressed();
+    }
   } //al hacer click
   pressed = false; //soltar click
 } //al soltar el click
