@@ -54,25 +54,14 @@ La clase ```Cannon``` es la encargada del movimiento, mostrado y comportamiento 
 
 La clase ```Bubble``` es la encargada del movimiento, mostrado y comportamiento general de las burbujas. Sus métodos son:
 
-+ ```getBubbleColor```: Se encarga de devolver el color de cierta burbuja (trivial en este punto de avance del juego).
-+ ```getN``` : Devuelve el valor para el grado del número en la burbuja (no implementado correctamente aún).
++ ```getBubbleColor```: Se encarga de devolver el color de cierta burbuja.
++ ```getN``` : Devuelve el valor para el grado del número en la burbuja.
 + ```display```: Muestra la burbuja. Además, le da movimiento en caso de haberse disparado.
 + ```mover```: Se encarga de transladar la burbuja del arreglo shoots (que guarda la información de las burbujas en movimiento en el tablero y la que tiene el cañón) al arreglo tablero (que guarda las burbujas que se fijan en el tablero).
 + ```reset```: Al disparar una burbuja, esta se duplica en el arreglo shoots, de tal manera que se le pueda aparentar movimiento desde el cañón. Al duplicarla, este método se encarga de reiniciar las propiedades de la burbuja en el cañón (la original) para poder repetir el proceso.
 + ```getPos```: Devuelve la posición de la burbuja como vector.
 
 Debido a que estas 2 funciones requerían información sobre la posición del *mouse*, bien sea para alinear el cañón o bien sea para dirigir la burbuja en la dirección correcta, se implemento la clase abstracta ```Vectoriables```, la cual guarda un vector que tiene la posición del *mouse* respecto al cañón, pero cuya magnitud se mantiene en 50 al utilizar el método ```setDirection```, encargado de alinear el cañón respecto al *mouse* y de dirigir la burbuja en dirección al *mouse* al momento de disparar (el cual se activa con la función ```mouseClicked```).
-
-Debido a varios problemas en la construcción del código, como lo fueron la instalación del código a objetos, el detector de impacto de las burbujas respecto a otras burbujas en el tablero, la necesidad de varios métodos para las burbujas y el cañón, y el perfeccionamiento en el funcionamiento de estos, está para su próxima implementación:
-+ Una guía durante el disparo de las burbujas
-+ Los números dados por *2^n* de cada burbuja según se vayan combinando para que dicho *n* vaya aumentando.
-+ El movimiento de las burbujas hacia la parte inferior del tablero, para generar más burbujas aleatoriamente.
-+ El diseño, texturas y estética de los cañones
-+ Los puntajes durante juego y demás estadísticas.
-+ Un menú para guardar los mejores puntajes.
-+ Un menú de configuración para modificar la dificultad y estética del juego a gusto del usuario.
-+ Manual de juego.
-+ Sensor de pérdida.
 
 ## 2048
 Primero debemos saber que es un 2048, el juego tiene como objetivo deslizar baldosas en una cuadrícula para combinarlas y crear una baldosa con el número 2048. Se lo considera como un rompecabezas de deslizamiento, fue desarrollado por primera vez por: Gabriele Cirulli.
