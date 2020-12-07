@@ -48,12 +48,9 @@ line(width/2-20, height-10, width/2+20, height-10); line(width/2, height-25 , wi
 
 Al final, se unificó con el código original, con los que se formaron las clases ```Cannon``` y ```Bubble```.
 
-La clase ```Cannon``` es la encargada del movimiento, mostrado y comportamiento general de los cañones. Sus métodos son:
+La clase ```Cannon``` es la encargada del movimiento, mostrado y comportamiento general de los cañones. Su único método es:
 
 + ```display```: Se encarga de mostar el cañón en el tablero.
-+ ```setActivo```: LLama al método ```activar``` con valor ```true```.
-+ ``` activar```: Se encarga de establecer el cañón como principal y devuelve el booleano ```false```, de tal manera que pueda ser usado para desactivar el otro cañón.
-+ ```getActivo```: Devuelve un valor booleano que determina si dicho cañón es principal o secundario.
 
 La clase ```Bubble``` es la encargada del movimiento, mostrado y comportamiento general de las burbujas. Sus métodos son:
 
