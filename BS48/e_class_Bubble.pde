@@ -3,7 +3,7 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
   PVector p, v, d; //posición de la burbuja, velocidad de la burbuja y distancia entre burbujas
   color bubbleColor; //color de la burbuja
   int n, //grado de 2^n para el número en la burbuja
-  s, //para el índice sombra de la burbuja en lanzamiento
+  s, //índice de sombra de burbujas contiguas 
   uniones = 0, //burbujas a la que esta unida la actual (disponible en tablero)
   booleans = 0; //+1 si la dirección de la burbuja está invertida, +2 si la burbuja está en lanzamiento, +4 si es descartable, +8 si debe estar en el tablero
   Bubble(int _n, boolean _state, color _bubbleColor, PVector _p){ //constructor principal (argumentos: int, bool, color, vector)
@@ -26,7 +26,8 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
   } //devuelve la posición de la burbuja
   boolean mover(){ return (booleans & 10) == 8; } //verifica si se puede fijar una burbuja
   void fijar(){ booleans = (booleans & 12) | 8; } //fuerza fijado al tablero
-  void bajar(){ p.y+=30; if(p.y == height - 135){ interfaz = 2; }} //baja una fila cada burbuja y da perdida en caso de salir de la matriz
+  void bajar(){ p.y+=30; } //baja una fila cada burbuja y da perdida en caso de salir de la matriz
+  void bajar(int _i){ if(activa){ interfaz = 2; } } //baja una fila cada burbuja y da perdida en caso de salir de la matriz
   void reset(int _mouseButton){ bubbleColor = nextBubble; nextBubble = colorBubble(); n = (resortear || (_mouseButton == LEFT))? nextBubbleN : n; nextBubbleN = (resortear || (_mouseButton == LEFT))? int(random(1,3)):nextBubbleN; booleans = 0; } //resetea la burbuja (exclusiva de la ubicada en el cañón)
   void display(){ //mostrar, rebotar y fijar burbujas
     strokeWeight(1); stroke(0); fill(bubbleColor); rectMode(CENTER); //centrar la burbuja al origen
@@ -40,27 +41,25 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
         booleans = (booleans & 12) | 8; //fija la burbuja (shoots a tablero)
         p.set((((p.x - 155) % 30) < 15)? int(p.x - ((p.x - 155) % 30)) : int(p.x + 30 - ((p.x - 155) % 30)), -15); //establece la ubicación de la burbuja
       } //impide a la burbuja atravesar el límite superior del tablero
-      s = (p.y+15)/30+(p.x-((p.x-155)%30)-155+((((p.x-155)%30)<15)? 0 : 30))/30;
-      for(int i = 0; i<3; i++){
-        for(int j = 0; j<3; j++){
+      s = round(12*(p.y-((p.y+15)%30)+15+((((p.y+15)%30)<15)? 0:30))/30+(p.x-((p.x-155)%30)-155+((((p.x-155)%30)<15)? 0:30))/30);
+      for(int i = 0; i<6; i++){
+        if((-1<(s+(i%3)-1+(int(i/3)-1)*12))&&((((s+(i%3)-1+(int(i/3)-1)*12))<156)||((s<168)&&(i<3)))&&(((i!=0)&&(i!=3))||((s%12)!=0))&&(((i!=2)&&(i!=5))||((s%12)!=11))&&((11<s)||(2<i))){
+          d = new PVector (p.x - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x, p.y - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, true)).y); //determina la distancia de la burbuja disparada a la del tablero
+          if (d.mag() < 30){ //si detecta impacto
+            if ((abs(p.y - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y) > abs(p.x - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x))&&(((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y < p.y)){ //o si golpea por debajo
+              p.x = ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x; p.y = ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y+30; //mueve justo debajo
+              if(p.y == height - 105){ interfaz = 2; }
+              fijar(); //fija (shoots a tablero)
+            } else if ((abs(p.y - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y) < abs(p.x - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x)) && (((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x < p.x)){ //si golpea por derecha
+              p.y = ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y; p.x = ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x+30; //mueve justo a la derecha
+              fijar(); //fija (shoots a tablero)
+            } else if ((abs(p.y - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y) < abs(p.x - ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x)) && (((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x > p.x)){ // si golpea por izquierda
+              p.y = ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).y; p.x = ((tablero.get(s+(i%3)-1+(int(i/3)-1)*12)).getPos(false, false)).x-30; //mueve justo a la izquierda
+              fijar(); //fija (shoots a tablero)
+            } //selecciona la posición en la cual se fijará respecto a la burbuja a la cual impactó
+          } //impide que atraviese las burbujas en el tablero
         }
       }
-      for (Bubble bubbles : tablero){ //for(int i=0; i<tablero.size(); i++){ //recorre burbujas del tablero
-        d = new PVector (p.x - (bubbles.getPos(false, false)).x, p.y - (bubbles.getPos(false, true)).y); //determina la distancia de la burbuja disparada a la del tablero
-        if (d.mag() < 30){ //si detecta impacto
-          if ((abs(p.y - (bubbles.getPos(false, false)).y) < abs(p.x - (bubbles.getPos(false, false)).x)) && ((bubbles.getPos(false, false)).x < p.x)){ //si golpea por derecha
-            p.y = (bubbles.getPos(false, false)).y; p.x = (bubbles.getPos(false, false)).x+30; //mueve justo a la derecha
-            fijar(); //fija (shoots a tablero)
-          } else if ((abs(p.y - (bubbles.getPos(false, false)).y) < abs(p.x - (bubbles.getPos(false, false)).x)) && ((bubbles.getPos(false, false)).x > p.x)){ // si golpea por izquierda
-            p.y = (bubbles.getPos(false, false)).y; p.x = (bubbles.getPos(false, false)).x-30; //mueve justo a la izquierda
-            fijar(); //fija (shoots a tablero)
-          } else { //o si golpea por debajo
-            p.x = (bubbles.getPos(false, false)).x; p.y = (bubbles.getPos(false, false)).y+30; //mueve justo debajo
-            if(p.y == height - 105){ interfaz = 2; }
-            fijar(); //fija (shoots a tablero)
-          } //selecciona la posición en la cual se fijará respecto a la burbuja a la cual impactó
-        } //impide que atraviese las burbujas en el tablero
-      } //busca en todas las burbujas del tablero si hay una contra la cual esté impactando
     } else if (((booleans & 8) == 8) && activa){
       rect(p.x, p.y+bajamiento, 30, 30, 5); //dibujar la burbuja
       fill(0);
@@ -69,5 +68,14 @@ class Bubble extends Vectoriables{ //todo acerca de la burbuja
       fill(0);
       if(0<n){textAlign(CENTER, CENTER); textSize(14); text(int(pow(2,n)), p.x, p.y);}
     } //muestra burbuja del cañón
+  }
+  void display(int _i){
+    strokeWeight(1); stroke(0); fill(bubbleColor); rectMode(CENTER); //centrar la burbuja al origen
+    p.set(((_i%12)*30)+155, int(_i/12)*30-15);
+    if (activa){
+      rect(p.x, p.y+bajamiento, 30, 30, 5); //dibujar la burbuja
+      fill(0);
+      if(0<n){textAlign(CENTER, CENTER); textSize(14); text(int(pow(2,n)), p.x, p.y+bajamiento);}
+    }
   }
 }

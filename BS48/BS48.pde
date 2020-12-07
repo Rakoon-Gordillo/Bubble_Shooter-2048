@@ -7,7 +7,7 @@ int _mouseButton = 0, //boton del mouse presionado (itera entre LEFT, CENTER Y R
 nextBubbleN, //color de la siguiente burbuja
 paleta = 5, //cantidad de colores de burbujas en juego (puede variar entre 3 y 8, default = 5)
 topN = 2, puntaje = 0; //n más grande y puntaje acumulados
-float fps = 60, //cuadros por segundo
+float fps = 20, //cuadros por segundo
 bajamiento = 0, //cuanto bajan las burbujas en el tablero
 interfaz = 0; //variable de pantalla que se muestra
 color nextBubble; //color de la siguiente burbuja

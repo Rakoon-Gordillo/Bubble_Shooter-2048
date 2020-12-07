@@ -20,11 +20,9 @@ void draw () {
     mainCannon.display(); //muestra cañones
     (shoots.get(0)).display(); //muestra burbuja del cañón
     for (int i = tablero.size()-1; i>-1; i--){
-      (tablero.get(i)).display(); //muestra las burbujas del tablero
-      if (((bajamiento>0.98) && ((((tablero.get(i)).getPos(true, false)).x) == height-135)) || ((((tablero.get(i)).getPos(true, false)).y) > height-135)){
-        interfaz = 2;
-      }
+      (tablero.get(i)).display(i); //muestra las burbujas del tablero
       if ((bajamiento >= 30) && (interfaz == 1) && (i<144)){ (tablero.get(i)).bajar(); tablero.set(i+12, tablero.get(i)); } //baja una linea las burbujas para poder insertar otra fila
+      else if((bajamiento >= 30) && (interfaz == 1)){(tablero.get(i)).bajar(i);}
     } //baja una fila
     if ((bajamiento >= 30) && (interfaz == 1)){ bajamiento = 0; //reinicia bajamiento para agregar otra fila de burbujas 
       for (int i = 0; i<12; i++){ //repite 12 veces la siguiente operación al cumplirse el tiempo establecido
