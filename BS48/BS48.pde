@@ -1,6 +1,6 @@
 ArrayList<Bubble> tablero = new ArrayList<Bubble>(); //Burbujas presentes en el tablero 
 ArrayList<Bubble> shoots = new ArrayList<Bubble>(); //Burbujas lanzadas y preparadas para lanzamiento
-ArrayList<PVector> encadenadas = new ArrayList<PVector>(); //Posiciones de las burbujas vacías que serán explotadas
+IntList encadenadas = new IntList(); //Posiciones de las burbujas vacías que serán explotadas
 boolean pressed = false, //determina si está presionado alguna tecla del mouse
 resortear = false; //determina si al disparar una burbuja se sortea el 2^n presente en el cañón
 int _mouseButton = 0, //boton del mouse presionado (itera entre LEFT, CENTER Y RIGHT)
@@ -25,3 +25,10 @@ void setup () {
   for(int i = 0; i<24; i++){ tablero.add(new Bubble((int(random(0,2)) == 1)? int(random(1,3)):0, false, new PVector(((i%12)*30)+155, int(i/12)*30-15))); (tablero.get(i)).fijar(); } //crea 2 filas iniciales del tablero
   for(int i = 24; i<156; i++){ tablero.add(new Bubble(new PVector(((i%12)*30)+155, int(i/12)*30-15))); } //crear burbujas abstractas
 }
+void eliminar(){
+  for(int j = encadenadas.size()-1; j>-1; j--){
+    tablero.set(encadenadas.get(j), new Bubble(new PVector(((encadenadas.get(j)%12)*30)+155, int(encadenadas.get(j)/12)*30-15)));
+  }
+  encadenadas.clear();
+}
+void autodestruccion(int s){tablero.set(s, new Bubble(new PVector(((s%12)*30)+155, int(s/12)*30-15)));}

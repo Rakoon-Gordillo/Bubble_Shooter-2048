@@ -30,8 +30,10 @@ void draw () {
       }
     } //genera una nueva fila en el tablero
     bajamiento += (interfaz == 1)? (1.5/fps):0; //baja gradualmente las burbujas
-    image(leftPanel, 0, 0); image(rightPanel, width-140, 0); strokeWeight(3); stroke(255); //paneles y decorado de bordes
+    image(leftPanel, 0, 0); image(rightPanel, width-140, 0); strokeWeight(3); stroke(255);  //paneles y decorado de bordes
     line(140, 0, 140, height); line(140, 0, width-140, 0); line(140, height, width-140, height); line(width-140, 0, width-140, height); //bordes de tablero
+    /*fill(0, 200); rectMode(CORNERS); rect(width-130, height/2-50, width-10, height/2+50, 5);
+    fill(255); textFont(letterFont, 30); text("Puntaje", width-70, height/2-25); textFont(numberFont, 20); text(puntaje, width-70, height/2+20);*/
     if (interfaz == 2){
       pushStyle(); fill(0, 100); rectMode(CORNERS); noStroke(); rect(-10, -10, width, height); //oscurecimiento de pérdida
       fill(#BED565); rect(150, 10, width-150, height-100, 25); //menú de pérdida
